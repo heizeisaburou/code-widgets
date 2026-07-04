@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-# 平生三郎 ― https://github.com/heizeisaburou/coding-widgets/bash/get_script_dir.sh
+# 平生三郎 - https://github.com/heizeisaburou
+#
+# https://github.com/heizeisaburou/code-widgets/blob/main/bash/get_script_dir.sh
 
 # Devuelve el directorio real donde se encuentra este archivo, resolviendo
 # enlaces simbólicos de forma recursiva. Esto permite obtener una ruta absoluta
