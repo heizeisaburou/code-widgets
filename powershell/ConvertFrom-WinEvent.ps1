@@ -13,12 +13,16 @@
 #
 # Los nodos <Binary> de los proveedores clasicos se descartan a proposito: son
 # un volcado hexadecimal sin valor de lectura.
+#
+# Por defecto solo salen cuatro cabeceras. Con -System se anade el resto de la
+# mitad <System> del evento, y con -Message el texto renderizado.
 function ConvertFrom-WinEvent
 {
   [CmdletBinding()]
   param(
     [Parameter(Mandatory, ValueFromPipeline)]
     [System.Diagnostics.Eventing.Reader.EventRecord] $Event,
+    [switch] $System,
     [switch] $Message
   )
   process
@@ -52,6 +56,33 @@ function ConvertFrom-WinEvent
           $d[$node.LocalName] = $node.InnerText
         }
       }
+    }
+
+    # La otra mitad del evento, la de <System>. Va despues de los datos para no
+    # empujar hacia abajo lo que se suele mirar.
+    #
+    # Todo prefijado con Sys porque cualquiera de estos nombres puede existir
+    # tambien en EventData. El caso claro es ProcessId: el de <Execution> es el
+    # del proceso que ESCRIBIO el evento -el servicio de Sysmon, p.ej.-, no el
+    # del evento, y sin prefijo pisaria al ProcessId real.
+    #
+    # Se leen del EventRecord y no del XML: son los mismos campos, pero con su
+    # tipo de verdad en vez de cadenas.
+    if ($System) {
+      $d['SysProviderId']        = $Event.ProviderId
+      $d['SysVersion']           = $Event.Version
+      $d['SysLevel']             = $Event.Level
+      $d['SysTask']              = $Event.Task
+      $d['SysOpcode']            = $Event.Opcode
+      $d['SysKeywords']          = $Event.Keywords
+      $d['SysRecordId']          = $Event.RecordId
+      $d['SysChannel']           = $Event.LogName
+      $d['SysComputer']          = $Event.MachineName
+      $d['SysUserId']            = $Event.UserId
+      $d['SysProcessId']         = $Event.ProcessId
+      $d['SysThreadId']          = $Event.ThreadId
+      $d['SysActivityId']        = $Event.ActivityId
+      $d['SysRelatedActivityId'] = $Event.RelatedActivityId
     }
 
     # .Message se renderiza contra el manifiesto del proveedor y es caro: solo
@@ -96,6 +127,7 @@ function Test-WinEventCoverage
       }
     }
 
+    # Sin -System ni -Message: solo interesan los campos del evento.
     $presentes = ($Event | ConvertFrom-WinEvent).PSObject.Properties.Name
 
     $faltan = @($esperados |
