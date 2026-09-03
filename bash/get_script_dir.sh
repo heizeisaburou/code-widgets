@@ -5,10 +5,8 @@
 # https://github.com/heizeisaburou/code-widgets/blob/main/bash/get_script_dir.sh
 
 # Devuelve el directorio real donde se encuentra este archivo, resolviendo
-# enlaces simbólicos de forma recursiva. Esto permite obtener una ruta absoluta
-# y estable independientemente de desde dónde se ejecute el script o de si fue
-# invocado a través de un symlink.
-get_script_dir() {
+# enlaces simbólicos de forma recursiva.
+get_real_script_dir() {
   local SOURCE_PATH="${BASH_SOURCE[0]}"
   local symlinkDir
   local scriptDir
@@ -26,4 +24,13 @@ get_script_dir() {
   # Obtiene el scriptDir a traves de un path completamente resuelto
   scriptDir="$(cd -P "$(dirname "$SOURCE_PATH")" >/dev/null 2>&1 && pwd)"
   echo "$scriptDir"
+}
+
+# Devuelve el directorio donde está este archivo según la ruta usada para invocarlo.
+# No resuelve enlaces simbólicos: si el script se ejecuta mediante un symlink,
+# devuelve el directorio del symlink, no el del archivo real.
+get_script_dir() {
+  (
+    cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd
+  )
 }
