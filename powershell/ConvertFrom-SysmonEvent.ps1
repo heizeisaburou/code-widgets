@@ -1,6 +1,6 @@
 # 平生三郎 - https://github.com/heizeisaburou
 #
-# https://github.com/heizeisaburou/code-widgets/blob/main/powershell/ConvertFrom-SysmonEvent.ps1
+# GitHub (public): https://github.com/heizeisaburou/code-widgets/blob/main/powershell/ConvertFrom-SysmonEvent.ps1
 
 # Version minima de ConvertFrom-WinEvent, pensada para teclear de memoria en una
 # maquina donde no se puede pegar nada.

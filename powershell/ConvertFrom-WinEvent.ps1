@@ -1,6 +1,6 @@
 # 平生三郎 - https://github.com/heizeisaburou
 #
-# https://github.com/heizeisaburou/code-widgets/blob/main/powershell/ConvertFrom-WinEvent.ps1
+# GitHub (public): https://github.com/heizeisaburou/code-widgets/blob/main/powershell/ConvertFrom-WinEvent.ps1
 
 # Convierte un registro de Get-WinEvent en un [pscustomobject] con todos sus
 # campos accesibles por nombre, sin tener que indexar .Properties[n] ni parsear
