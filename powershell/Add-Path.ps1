@@ -2,8 +2,9 @@
 #
 # GitHub (public): https://github.com/heizeisaburou/code-widgets/blob/main/powershell/Add-Path.ps1
 
-# Apenda directorios al PATH de la sesion. Solo agrega los que existen y nunca
-# crea entradas duplicadas.
+# Apenda directorios al PATH de la sesion actual de PowerShell. Solo agrega los
+# que existen y nunca crea entradas duplicadas. No toca el PATH del usuario ni
+# el del sistema.
 #
 #   Add-Path $HOME\bin $HOME\scripts
 #

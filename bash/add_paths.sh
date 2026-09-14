@@ -4,8 +4,9 @@
 #
 # GitHub (public): https://github.com/heizeisaburou/code-widgets/blob/main/bash/add_paths.sh
 
-# Apenda directorios al PATH. Solo agrega los que existen y nunca crea
-# entradas duplicadas.
+# Apenda directorios al PATH de la sesion actual de bash. Solo agrega los que
+# existen y nunca crea entradas duplicadas. No toca ningun fichero de
+# configuracion: para que dure, hay que llamarla desde ~/.bashrc.
 #
 #   add_paths ~/bin ~/scripts
 add_paths() {
